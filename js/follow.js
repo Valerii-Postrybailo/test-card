@@ -1,15 +1,45 @@
-const btn = document.querySelector(".card__btn");
+const btnEl = document.querySelector(".card__btn");
+const followersNumberEl = document.querySelector(".card__user-followers-span");
 
-console.log(btn.textContent)
+const deleteComa = (content) => Number(content.replace(/[\s.,%]/g, ''));
+
+const addComa = (content) => {
+  const array = followersNumberEl.textContent.split("");
+
+  if (array.length === 6){
+    array.splice(3,0,",")
+    return content = array.join("")
+  }
+
+  if (array.length  === 5 ){
+    array.splice(2,0,",")
+    return content = array.join("")
+  }
+
+  return content
+}
 
 const handleClick = () => {
-  console.log("click")
 
-  if (btn.textContent = "Follow") {
-    return btn.textContent = "Following"
-  } else if (btn.textContent = "Following"){
-    return btn.textContent = "Follow"
+  if (btnEl.textContent === "Follow") {
+    followersNumberEl.textContent = deleteComa(followersNumberEl.textContent) + 1
+    followersNumberEl.textContent = addComa(followersNumberEl.textContent)
+
+    return (
+      btnEl.textContent = "Following",
+      btnEl.style.backgroundColor = "#5CD3A8"
+      )
+  } else {
+    followersNumberEl.textContent = deleteComa(followersNumberEl.textContent) - 1
+    followersNumberEl.textContent = addComa(followersNumberEl.textContent)
+
+    return (
+      btnEl.textContent = "Follow",
+      btnEl.style.backgroundColor = "#EBD8FF"
+    )
   }
 }
 
-btn.addEventListener("click", handleClick )
+followersNumberEl.textContent = addComa(followersNumberEl.textContent)
+
+btnEl.addEventListener("click", handleClick )
